@@ -1,0 +1,34 @@
+@host = http://localhost:4000
+
+
+
+### get-my-user
+GET {{host}}/api/set/get-my-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjE5ODEzMjcxLCJleHAiOjE2MTk4OTk2NzF9.oa8Egt68r42rIS-OAy2UjzQg7oy3KIvhPO0WPu5hlEI
+
+
+
+### change-username
+PUT {{host}}/api/set/change-username
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9maWxlIjoiY29raSIsInJvbGUiOiJtYW5hZ2VyIiwiaWF0IjoxNjE4ODYxOTUxLCJleHAiOjE2MTg5NDgzNTF9.8Go8gz7z369GfVDTQRlY76osFuWuTiFkMdD319U0BJw
+# JSON
+{
+	"username": "",
+	"password": "",
+	"new_user_or_psswd": ""
+}
+
+
+
+### change-password
+PUT {{host}}/api/set/change-password
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJjb2tpIiwicm9sZSI6Im1hbmFnZXIiLCJpYXQiOjE2MTkzNjY1NzYsImV4cCI6MTYxOTQ1Mjk3Nn0.9UgdmzVzj1xoeJDwRvyPUNpA5x5OlmhC1ZntDHmtheE
+# JSON
+{
+	"username": "",
+	"password": "",
+	"new_user_or_psswd": ""
+}

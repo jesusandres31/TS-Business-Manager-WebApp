@@ -1,0 +1,21 @@
+do
+$$
+declare
+  s_rec record;
+begin
+  for s_rec in select schema_name 
+               from information_schema.schemata
+               where schema_name not in ('pg_catalog', 'information_schema', 'public', 'pg_toast_temp_1', 'pg_temp_1', 'pg_toast')
+  loop
+     execute format (('
+      SET search_path TO %I;
+
+      ALTER TABLE clients DROP COLUMN IF EXISTS debt;
+
+      UPDATE report_master SET payment_type_id = 1;
+
+      SET search_path TO public;
+'), s_rec.schema_name);
+  end loop;
+end;
+$$

@@ -1,0 +1,192 @@
+
+################################################################################################
+################################################################################################
+COMANDOS----------------------------------------------------------------------------------------
+################################################################################################
+################################################################################################
+
+npm init 
+
+npm i express pg morgan helmet cors dotenv bcrypt jsonwebtoken passport-jwt passport rimraf express-rate-limit
+
+npm i -D typescript tsc-watch @types/express @types/pg @types/morgan @types/cors @types/dotenv @types/bcrypt @types/jsonwebtoken @types/passport-jwt
+ @types/express-rate-limit
+
+npx tsc --init 
+// para ejecutar -> npx tsc
+// y configuramos tsconfig.js
+*
+tscript.js: {
+"compilerOptions": {
+  "target": "es6",
+  "module": "commonjs",
+  "outDir": "./dist/src",
+  "rootDir": "./src",
+  "strict": true,
+  "moduleResolution": "node",
+  "esModuleInterop": true,
+  "forceConsistentCasingInFileNames": true
+},
+ "include": ["./src/**/*"],
+ "exclude": ["node_modules"]
+}
+*
+// para ejecutar -> npm run build
+*
+npm i nodemon
+npm i concurrently -D
+// y configuramos package.json
+*
+pakage.json: {
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"tsc --watch\" \"nodemon dist/src/index.js\"",
+    "build": "tsc"
+},
+}
+*
+// npm run dev
+*
+
+
+mkdir src 
+
+cd src {
+  touch app.ts index.is
+  mkdir config controllers middlewares models routes database services utils 
+}
+
+cd database {
+  touch database.sql
+}
+
+
+// una vez terminada mi REST API, tengo que convertirla a js puro -> npm run build
+// es para q pueda ser ejecutado con node. Para ejecutar -> node dest/index.js
+
+
+-----------------------------------------------------------------------------------
+PASSPORT JWT AND GOOGLE
+
+types.d.ts    
+
+tsconfig.json{
+  {
+  "compilerOptions": { 
+  // ...
+  },
+  // ...
+  "files": ["types.d.ts"]
+}
+
+npm install passport-local
+npm install passport
+
+
+HEADER -> Authorization, Bearer token
+
+---- 
+
+ npm install passport-google-oauth20
+npm install @types/passport-google-oauth20
+------------------------------------------------------------------------------------
+SWAGGER TSOA
+
+npm install swagger-ui-express --save
+
+npm install @types/swagger-ui-express
+
+tsconfig.json{
+  {
+  "compilerOptions": { 
+  // ...
+  "resolveJsonModule": true,
+  "esModuleInterop": true,
+  },
+  // ...
+}
+
+----
+
+npm install tsoa --save
+
+tsconfig.json{
+  {
+  "compilerOptions": { 
+  // ...
+  "experimentalDecorators": true
+  "moduleResolution": "node"
+  },
+  // ...
+}
+
+pakage.json{
+	scripts:
+	"generate": "tsoa routes && tsoa swagger"
+}
+
+import { Route, Get, Post, Put, Delete, Patch } from "tsoa";
+@Route("/api")
+  @Get()
+   @Get("/{id}")
+     @Post() 
+     @Delete("/{id}")
+      @Put("/{id}")
+      @Patch("/{id}")
+
+
+------------------------------------------------------------------------------------
+EXPRESS-VALIDATOR
+npm install --save express-validator
+
+
+
+
+------------------------------------------------------------------------------------
+REACT
+
+npx create-react-app --template typescript client
+
+// para arrancar la aplicacion 
+npm start
+
+npm i react-router-dom
+npm i @types/react-router-dom
+
+
+--------------------
+
+npm uninstall bootswatch bootstrap jquery popper.js
+
+npm uninstall swagger-ui-express tsoa
+
+
+--------------------
+MATERIAL UI 
+
+npm install @material-ui/core
+
+npm install fontsource-roboto				import 'fontsource-roboto';				
+
+npm install @material-ui/icons
+
+
+
+--------------------
+SASS
+
+yarn add node-sass
+
+
+
+##################################################################################
+
+
+
+CLEAN DB:::::::::::::::::::::::::::
+
+\c postgres
+DROP DATABASE tsbusinessmanager;
+CREATE DATABASE tsbusinessmanager;
+\c tsbusinessmanager
+

@@ -1,0 +1,13 @@
+@host = http://localhost:4000
+
+
+
+### signin
+POST {{host}}/api/auth/signin
+Content-Type: application/json
+# JSON
+{
+	"profile": "public",
+    "username": "dev.yisus",
+    "password": "typescript"
+}

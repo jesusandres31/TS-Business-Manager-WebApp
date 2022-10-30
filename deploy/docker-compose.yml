@@ -1,0 +1,40 @@
+# docker-compose up -d
+
+version: "3"
+
+services:
+  db:
+    container_name: ts-business-manager-webapp_db
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ../../../pgdata:/var/lib/postgresql/data
+    ports:
+      - "5555:5432"
+    expose:
+      - "5555"
+  api:
+    container_name: ts-business-manager-webapp_api
+    image: registry.gitlab.com/jesus.zini/ts-business-manager-webapp/backend:latest
+    restart: always
+    depends_on:
+      - db
+  app:
+    container_name: ts-business-manager-webapp_app
+    image: registry.gitlab.com/jesus.zini/ts-business-manager-webapp/frontend:latest
+    restart: always
+    depends_on:
+      - api
+  nginx:
+    container_name: ts-business-manager-webapp_nginx
+    restart: always
+    build: ../nginx
+    ports:
+      - "8081:80"
+    depends_on:
+      - api
+      - app

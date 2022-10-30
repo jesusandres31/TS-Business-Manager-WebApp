@@ -1,0 +1,46 @@
+DIGITALOCEAN: {
+    ssh root@143.110.155.246
+    'tsbusinessmanager' ssh passphrase    
+};
+
+REBUILD CONTAINERS IN CLOUD SERVER: {
+    Stop container:
+        docker-compose stop
+    Build container:
+        docker-compose build
+    Run containers: 
+        docker-compose up -d
+    Stop container:
+        docker-compose stop
+    Run containers: 
+        docker-compose up -d
+};
+
+START CONTAINERS IN CLOUD SERVER WITH LETSENCRYPT: {
+    Stop container:
+        docker-compose stop
+    Build container:
+        docker-compose build
+    Run the init script: 
+        chmod +x init-letsencrypt.sh 
+        sudo ./init-letsencrypt.sh
+    Stop container:
+        docker-compose stop
+    Run containers: 
+        docker-compose up -d
+};
+
+REST API Initialization: {
+    1. Creat database from postgres.
+    CREATE DATABASE tsbusinessmanager;
+
+    2. Start express server for dev.
+    npm run dev
+
+    3. Run initial Setup (create public schema and admin account).
+    npm run createdb
+
+    4. Start application.
+    npm start
+};
+

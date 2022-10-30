@@ -1,0 +1,39 @@
+do
+$$
+declare
+  s_rec record;
+begin
+  for s_rec in select schema_name 
+               from information_schema.schemata
+               where schema_name not in ('pg_catalog', 'information_schema', 'public', 'pg_toast_temp_1', 'pg_temp_1', 'pg_toast')
+  loop
+     execute format (('
+      SET search_path TO %I;
+
+      ALTER TABLE report_master DROP COLUMN "debt" CASCADE;
+
+      ALTER TABLE report_master DROP COLUMN "enabled" CASCADE;
+
+      ALTER TABLE report_master ADD COLUMN "payment" decimal(12,2) NOT NULL CHECK("payment" >= 0) DEFAULT 0;
+
+      ALTER TABLE report_master ADD COLUMN "debt" decimal(12,2) NOT NULL CHECK("debt" >= 0) DEFAULT 0;
+
+      ALTER TABLE clients ADD COLUMN "debt" decimal(12,2) NOT NULL DEFAULT 0;
+
+      CREATE TABLE "checking_accounts"
+      (
+        "id" SERIAL PRIMARY KEY NOT NULL,
+        "client_id" int NOT NULL,
+        "report_master_id" int NOT NULL DEFAULT -1,
+        "created" timestamp NOT NULL CHECK("created" >= ''1900-01-01''),
+        "previous_debt" decimal(12,2) NOT NULL DEFAULT 0,
+        "movement" decimal(12,2) NOT NULL DEFAULT 0
+      );
+
+      ALTER TABLE "checking_accounts" ADD CONSTRAINT "checking_accounts-clients-fk" FOREIGN KEY ("client_id") REFERENCES clients ("id");
+
+      SET search_path TO public;
+'), s_rec.schema_name);
+  end loop;
+end;
+$$

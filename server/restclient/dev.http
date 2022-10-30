@@ -1,0 +1,101 @@
+@host = http://localhost:4000
+
+
+
+### signup-tenant
+POST {{host}}/api/dev/signup-tenant
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjE5ODEzMjcxLCJleHAiOjE2MTk4OTk2NzF9.oa8Egt68r42rIS-OAy2UjzQg7oy3KIvhPO0WPu5hlEI
+# JSON
+{
+  "profile": "servicios",
+  "company_name": "Servicios de PC",
+  "language": "ES",
+  "locality": "Goya, Corrientes",
+  "phone": "3777685892",
+  "email": "sebaalegre@serviciosdepc.com",
+  "website": "www.instagram.com/serviciosdepc/",
+  "max_members": 3,
+  "payment_type_id": 1,
+  "product_type_id": 1,
+  "sale_type_id": 1,
+  "manager": {
+    "manager_name": "Sebastian",
+    "manager_surname": "Alegre",
+    "manager_email": "",
+    "manager_phone": "3777685892",
+    "manager_username": "sebastian",
+    "manager_password": "contraseña"
+  }
+}
+
+
+
+### get-tenants
+GET {{host}}/api/dev/get-tenants
+
+
+
+### get-tenant/[name]
+GET {{host}}/api/dev/get-tenant/coki
+
+
+
+### get-tenant-users/[name]
+GET {{host}}/api/dev/get-tenant-users/coki
+
+
+
+### update-max-mem/[name]
+PATCH {{host}}/api/dev/update-max-mem/computerservices
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjI2NzM5MzQ0LCJleHAiOjE2MjY4NTQ1NDR9.8gh9xrmCaVHfwNKTGoMWa08ptymIOzzVMJnDxC3G8lA
+# JSON
+{
+	"max_members": 5
+}
+
+
+
+### disable-tenant/[name]
+DELETE {{host}}/api/dev/disable-tenant/asdas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjI2NzM5MzQ0LCJleHAiOjE2MjY4NTQ1NDR9.8gh9xrmCaVHfwNKTGoMWa08ptymIOzzVMJnDxC3G8lA
+
+
+
+### enable-tenant/[name]
+PATCH {{host}}/api/dev/enable-tenant/asdas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjI2NzM5MzQ0LCJleHAiOjE2MjY4NTQ1NDR9.8gh9xrmCaVHfwNKTGoMWa08ptymIOzzVMJnDxC3G8lA
+
+
+
+### disable-tenant-user/[name]/[n]
+DELETE {{host}}/api/dev/disable-tenant-user/asdsd/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjI2NzM5MzQ0LCJleHAiOjE2MjY4NTQ1NDR9.8gh9xrmCaVHfwNKTGoMWa08ptymIOzzVMJnDxC3G8lA
+
+
+
+### enable-tenant-user/[name]/[n]
+PATCH {{host}}/api/dev/enable-tenant-user/asdds/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjI2NzM5MzQ0LCJleHAiOjE2MjY4NTQ1NDR9.8gh9xrmCaVHfwNKTGoMWa08ptymIOzzVMJnDxC3G8lA
+
+
+### enreset-adm-psswd/[name]
+PATCH {{host}}/api/dev/reset-adm-psswd/asdsd
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjI2NzM5MzQ0LCJleHAiOjE2MjY4NTQ1NDR9.8gh9xrmCaVHfwNKTGoMWa08ptymIOzzVMJnDxC3G8lA
+
+
+
+### change-schema-name/[newname]
+PATCH {{host}}/api/dev/change-schema-name/asdsadas
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInByb2ZpbGUiOiJwdWJsaWMiLCJyb2xlIjoiZGV2IiwiaWF0IjoxNjI2NzM5MzQ0LCJleHAiOjE2MjY4NTQ1NDR9.8gh9xrmCaVHfwNKTGoMWa08ptymIOzzVMJnDxC3G8lA
+# JSON
+{
+	"profile": "profilename"
+}

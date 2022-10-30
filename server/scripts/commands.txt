@@ -1,0 +1,115 @@
+####################################################################################
+##################################### DATABASE #####################################
+####################################################################################
+
+## execute plpgsql or sql file from terminal
+
+psql -U postgres -d tsbusinessmanager -a -f "C:\Users\jesus\Projects\TS-Business-Manager-WebApp\server\scripts\test.plpgsql"
+
+## copiar database a host
+
+scp -r root@143.110.155.246:/root/TS-Business-Manager-WebApp/db.dump C:\Users\jesus\Desktop
+
+# DUMP DB
+
+docker exec -u postgres db pg_dump -Fc tsbusinessmanager > db.dump
+
+docker exec -i -u postgres db pg_restore -C -d postgres < db.dump
+
+# backup wind
+
+cat C:\Users\jesus\tsbusinessmanager.sql | docker exec -i db -U postgres -d tsbusinessmanager
+
+cat /root/TS-Business-Manager-WebApp/backup/tsbusinessmanager.sql | docker exec -i db psql -U postgres
+
+
+
+
+####################################################################################
+##################################### DOCKER #######################################
+####################################################################################
+
+docker ps --format "table {{.Names}}\t{{.CreatedAt}}\t{{.State}}\t{{.Ports}}"
+
+docker tag my-image repo.treescale.com/jesusandres31/my-image
+
+docker push repo.treescale.com/jesusandres31/my-image
+
+docker build -t node-server .
+
+docker run -dp 4000:4000 node-server
+
+docker run -p 4000:4000 node-server
+
+docker run -it -p 4000:4000 node-server
+
+docker run -it node-server sh
+
+docker ps -q | % { docker stop $_ }
+
+docker exec -it db psql -U postgres
+
+docker exec -i -u postgres db pg_restore -C -d postgres < /root/TS-Business-Manager-WebApp/backup/tsbusinessmanager.sql
+
+docker build -f Dockerfile.dev -t react-client .
+
+docker-compose build
+
+docker-compose build --no-cache
+
+docker-compose up
+
+docker system prune -a
+
+docker-compose build --no-cache
+
+docker-compose up -d
+
+
+
+####################################################################################
+##################################### PLPGSQL #######################################
+####################################################################################
+
+do
+$
+$
+declare
+  s_rec record;
+begin
+  for s_rec in
+  select schema_name
+  from information_schema.schemata
+  where schema_name not in ('pg_catalog', 'information_schema', 'public', 'pg_toast_temp_1', 'pg_temp_1', 'pg_toast')
+  loop
+  execute format
+  (('SELECT * FROM %I.users;'), s_rec.schema_name);
+end loop;
+end;
+$$
+
+
+####################################################################################
+##################################### DB MIGRATION #######################################
+####################################################################################
+
+-- WINDOWS:
+
+psql -U postgres -d tsbusinessmanager -a -f "/root/TS-Business-Manager-WebApp/server/scripts/db-migration/checkingAccount/1-tenantsSchemasChanges.plpgsql"
+
+psql -U postgres -d tsbusinessmanager -a -f "/root/TS-Business-Manager-WebApp/server/scripts/db-migration/checkingAccount/2-publicSchemaChanges.sql"
+
+psql -U postgres -d tsbusinessmanager -a -f "/root/TS-Business-Manager-WebApp/server/scripts/db-migration/checkingAccount/3-tenantsSchemaChanges.plpgsql"
+
+-- LINUX:
+
+cat "/root/TS-Business-Manager-WebApp/server/scripts/db-migration/checkingAccount/1-tenantsSchemasChanges.plpgsql" | docker exec -i db psql -U postgres -d tsbusinessmanager
+
+cat "/root/TS-Business-Manager-WebApp/server/scripts/db-migration/checkingAccount/2-publicSchemaChanges.sql" | docker exec -i db psql -U postgres -d tsbusinessmanager
+
+cat "/root/TS-Business-Manager-WebApp/server/scripts/db-migration/checkingAccount/3-tenantsSchemaChanges.plpgsql" | docker exec -i db psql -U postgres -d tsbusinessmanager
+
+docker-compose stop
+
+docker-compose up -d --build
+

@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  db:
+    container_name: db
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  api:
+    container_name: api
+    restart: always
+    build: ./server/Dockerfile.dev
+    depends_on:
+      - db
+    volumes:
+      - ./server:/usr/src/app
+  app:
+    container_name: app
+    restart: always
+    build: ./client/Dockerfile.dev
+    depends_on:
+      - api
+    volumes:
+      - ./client:/usr/src/app
+  nginx:
+    container_name: nginx
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - api
+      - app
